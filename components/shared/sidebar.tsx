@@ -1,13 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { LayoutDashboard, CreditCard, Settings, LogOut } from 'lucide-react'
 import { OrgSwitcher } from '@/components/shared/org-switcher'
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { logout } from '@/actions/auth'
+import { authClient } from '@/lib/auth-client'
 
 type Org = {
   id: string
@@ -30,6 +30,12 @@ const navItems = [
 
 export function Sidebar({ user, activeOrg, organizations, plan }: Props) {
   const pathname = usePathname()
+  const router = useRouter()
+
+  async function handleLogout() {
+    await authClient.signOut()
+    router.push('/login')
+  }
 
   return (
     <aside className="flex h-screen w-60 shrink-0 flex-col border-r bg-white dark:bg-zinc-900">
@@ -75,12 +81,15 @@ export function Sidebar({ user, activeOrg, organizations, plan }: Props) {
           <p className="truncate text-xs text-zinc-500">{user.email}</p>
         </div>
         <div className="flex items-center justify-between">
-          <form action={logout}>
-            <Button variant="ghost" size="sm" type="submit" className="h-8 gap-1.5 px-2 text-xs">
-              <LogOut className="h-3.5 w-3.5" />
-              Salir
-            </Button>
-          </form>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            className="h-8 gap-1.5 px-2 text-xs"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            Salir
+          </Button>
           <ThemeToggle />
         </div>
       </div>
