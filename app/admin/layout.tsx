@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { headers } from 'next/headers'
 import Link from 'next/link'
-import { LayoutDashboard, Users } from 'lucide-react'
+import { LayoutDashboard, Users, Building2 } from 'lucide-react'
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { logout } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
@@ -42,6 +42,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           >
             <Users className="h-4 w-4" />
             Usuarios
+          </Link>
+          <Link
+            href="/admin/organizations"
+            className="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+          >
+            <Building2 className="h-4 w-4" />
+            Organizaciones
           </Link>
         </nav>
         <div className="border-t px-3 py-3">
