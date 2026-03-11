@@ -10,6 +10,14 @@ export default async function ProtectedLayout({ children }: { children: React.Re
 
   if (!session) redirect('/login')
   if (!session.user.emailVerified) redirect('/verify-email')
+
+  // SUPERADMIN va directamente al panel de administración
+  const currentUser = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { systemRole: true },
+  })
+  if (currentUser?.systemRole === 'SUPERADMIN') redirect('/admin')
+
   if (!session.session.activeOrganizationId) redirect('/select-org')
 
   const organizationId = session.session.activeOrganizationId
