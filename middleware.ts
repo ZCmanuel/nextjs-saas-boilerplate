@@ -4,7 +4,14 @@ import type { NextRequest } from 'next/server'
 import { getSessionCookie } from 'better-auth/cookies'
 
 // Accesibles sin sesión
-const publicRoutes = ['/', '/login', '/register', '/verify-email']
+const publicRoutes = [
+  '/',
+  '/login',
+  '/register',
+  '/verify-email',
+  '/forgot-password',
+  '/reset-password',
+]
 // Redirigen al dashboard si ya hay sesión
 const authRoutes = ['/login', '/register']
 // Requieren sesión (SUPERADMIN se verifica en cada Server Action)
