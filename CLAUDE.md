@@ -108,6 +108,27 @@ RESEND_API_KEY=
 NEXT_PUBLIC_APP_URL=
 ```
 
+## Reglas
+
+- **Nunca commitear directamente a `main` o `dev`**
+- **Nunca hacer push de `.env`** — está en `.gitignore`
+- **Un commit = una unidad lógica** — no mezclar cambios no relacionados
+- **Commits en presente:** "add login page" no "added login page"
+- **Ramas locales:** mantener solo `main` y `dev` entre features
+
+### Referencia rápida
+
+```bash
+git checkout dev && git pull origin dev          # siempre antes de empezar
+git checkout -b feat/nueva-feature               # crear rama
+git add . && git commit -m "feat: descripción"   # commitear
+git push origin feat/nueva-feature               # push
+# → crear PR en GitHub (base: dev)
+# → merge PR
+git checkout dev && git pull origin dev          # actualizar local
+git branch -d feat/nueva-feature                 # limpiar
+```
+
 ## Workflows
 
 ### Añadir una nueva feature al dashboard
